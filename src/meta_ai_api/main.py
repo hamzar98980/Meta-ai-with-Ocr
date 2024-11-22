@@ -442,7 +442,6 @@ async def retrieve_text(request: ImageRequest):
 
 if __name__ == "__main__":
     
-    # ai = MetaAI(fb_email="sampleid.201@gmail.com", fb_password="Hamza@786")
     # resp = ai.prompt(message="ae\n\nFBR Invoice #: 16318 1DF2M59265259\n\nKHL - MEGA - ZAMZAMA-\n\nNTN # B353738\n\nTransaction No.: 235010133704\nTransaction Date; Jun 2, 2024 1:59 PM\nUser: 61895-M Ahmed\n\npus KZMZ -SAL- PUS- Ol “KEME- -SAL-POS~ “OL\n\norigina a\n\nmee ae\n\nProduct Descript ion\n\n“Pakola Water 1500m)\n\n600 69,00 0.00  Rs414.00\ncat Tisu Emotions 100X2P ly\n1.00 995.00 0,00 R625 .00\n\nAxe Body Spray Musk 150m) -\n\n3.00 749.00 0.00 Rs2, 247.00\nClypso Bath Belt\n\n1.00 395.00 0.00 RS 395.00\nHankies Tisu Garden 150X2P ly\n\n3,00 249,00 0,00 RS 74700\nPerfect Air Frshnr Rfi1 Polo aul\n\n1,02 434 0 0.00 Rs439 .00\ntux BdyWet Uewy Sakura 500m]\n\n1.00 1195.00 0.00 Rs1, 155.06\nLndn Shn Shoe Shn Spng Nutr]\n\n1.00 335 010 0.00 Rs335.\n\nSor Storm Air Frehrir Rfil Lavendor >a0M\n1,00 675 0U (iti Rs525 00\nFBR POS Charges ™\n\n1.00 {ia G,00 Rs} .00\ntotal ‘Thems/tiuant ity 10/19.06\nDiscount Rs0 .00\nRounding Rs0 G0\n\nToice Vahe Fah BLD\n\nsale Tax Breakup\n\nExt. batt gs In}, Amt\nMRP Rs? 693.11 Rs522.89 Rs3 3,216.00\nNON MRP -Rs2, 755.38 Rs621. 62 Rs3,377.00\n\nPayments\n\nme we ce ET ne em wee mm\n\nKeen R56 , 593.00\nvhange Due Rs0. 00\n\n| MUL\n\nfor return 4 exchange policy details,\nVisit: www. imtiaz.com. ok/return-policies\n", stream=False)
     # # meta = MetaAI()
     # # resp = meta.prompt("How are you?", stream=False)
