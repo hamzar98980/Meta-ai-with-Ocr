@@ -13,6 +13,8 @@ from io import BytesIO
 import requests
 from requests_html import HTMLSession
 import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
+
 from utils import (
     generate_offline_threading_id,
     extract_value,
@@ -22,9 +24,19 @@ from utils import get_fb_session, get_session
 from exceptions import FacebookRegionBlocked
 
 app = FastAPI()
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust this to specify allowed origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allow all HTTP methods
+    allow_headers=["*"],  # Allow all headers
+)
+
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 MAX_RETRIES = 3
-THREAD_ID="fc0099a3-544a-4a0f-b300-5d2e3823dd67"
+THREAD_ID="dbb1d6de-c226-4326-9b41-189b5908be5c"
+# THREAD_ID="fc0099a3-544a-4a0f-b300-5d2e3823dd67"
 COOKIE_TOKEN="Fqz98dCNnsEBFlQYDmoxNXp2SVJndWpfbXpnFpKg%2BvMMAA%3D%3D"
 
 class MetaAI:
@@ -429,10 +441,14 @@ async def retrieve_text(request: ImageRequest):
         processed_image = preprocess_image(image)
         config = "--oem 3"
         extracted_text = pytesseract.image_to_string(processed_image, config=config, lang="eng")
-        
+        myprompt ="""  and rephrase the product name to actual product name fix the product spellings and also give me a brand of each product and
+dont remove quantity from the name like 100ml or 100kg just fixes the spelling mitsakes and also give me disocunt and give me in json
+ """
+        extracted_text=extracted_text+myprompt
         ai = MetaAI(fb_email="Email", fb_password="Password")
         resp = ai.prompt(message=extracted_text, stream=False)
         message = resp['message']
+        # message = extracted_text
     
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to process image {e}")
