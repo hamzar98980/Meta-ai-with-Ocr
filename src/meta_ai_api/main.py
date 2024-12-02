@@ -32,8 +32,8 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
 )
-
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Hamza Rashid\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'  # Adjust the path as needed
+# pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 MAX_RETRIES = 3
 THREAD_ID="dbb1d6de-c226-4326-9b41-189b5908be5c"
 # THREAD_ID="fc0099a3-544a-4a0f-b300-5d2e3823dd67"
@@ -425,6 +425,12 @@ def preprocess_image(image):
 class ImageRequest(BaseModel):
     image: str
 
+@app.get("/test")
+async def testingapi(request: ImageRequest):
+    print("testing the api")
+    return "api"
+    
+
 @app.post("/api/retrieve-text")
 async def retrieve_text(request: ImageRequest):
     image_url = request.image
@@ -442,7 +448,8 @@ async def retrieve_text(request: ImageRequest):
         config = "--oem 3"
         extracted_text = pytesseract.image_to_string(processed_image, config=config, lang="eng")
         myprompt ="""  and rephrase the product name to actual product name fix the product spellings and also give me a brand of each product and
-dont remove quantity from the name like 100ml or 100kg just fixes the spelling mitsakes and also give me disocunt and give me in json
+dont remove quantity from the name like 100ml or 100kg just fixes the spelling mitsakes and also give me disocunt and give me just json
+not any other text
  """
         extracted_text=extracted_text+myprompt
         ai = MetaAI(fb_email="Email", fb_password="Password")
