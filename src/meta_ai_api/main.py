@@ -32,10 +32,10 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
 )
-# pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Hamza Rashid\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'  # Adjust the path as needed
-pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Hamza Rashid\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'  # Adjust the path as needed
+# pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 MAX_RETRIES = 3
-THREAD_ID="dbb1d6de-c226-4326-9b41-189b5908be5c"
+THREAD_ID="ebe0e45e-27d2-459b-a3d2-792ed1a71a56"
 # THREAD_ID="fc0099a3-544a-4a0f-b300-5d2e3823dd67"
 COOKIE_TOKEN="Fqz98dCNnsEBFlQYDmoxNXp2SVJndWpfbXpnFpKg%2BvMMAA%3D%3D"
 
@@ -447,10 +447,63 @@ async def retrieve_text(request: ImageRequest):
         processed_image = preprocess_image(image)
         config = "--oem 3"
         extracted_text = pytesseract.image_to_string(processed_image, config=config, lang="eng")
-        myprompt ="""  and rephrase the product name to actual product name fix the product spellings and also give me a brand of each product and
-dont remove quantity from the name like 100ml or 100kg just fixes the spelling mitsakes and also give me disocunt and give me just json
-not any other text
- """
+        return {"result": extracted_text}
+        myprompt =  """  
+        
+                Convert it to json and and rephrase the product name to actual product name fix the product spellings and also give me a brand and manufactured of each product and
+                give me just json not any other text
+                example json structure below
+                {
+                "invoice_number": "163181DF2M59265259",
+                "store": "KH1 - MEGA - ZAMZAMA",
+                "ntn": "B353738",
+                "transaction_number": "235010133704",
+                "transaction_date": "Jun 2, 2024 1:59 PM",
+                "user": "61895-M Ahmed",
+                "pos": "KZMZ-SAL-POS-01-KZMZ-SAL-POS-01",
+                "items": [
+                {
+                "product_desc": "Cat Tisu Emotions 100x2ply Tissues",
+                "unit_price": "295.00",
+                "brand": "Cat Tisu",
+                "manufacturer":"",
+                "measurement_units": "pieces",
+                "price_per_unit": 995,
+                "quantity": 1,
+                "discount": 370,
+                "total_price": 625
+                }
+                ],
+                "total_items": 1,
+                "total_quantity": 1,
+                "discount":0,
+                "invoice_value": 625,
+                "gst": 100,
+                "payments": {
+                "method": "Keenu",
+                "amount": 625,
+                "card":"4659*********"
+                },
+                "change_due": "0.00",
+                "return_policy_url": "www.imtiaz.com.pk/return-policies"
+                }
+                """
+        # beforePrompt = """
+        #         You are a bot for api to extract the data from pictures like OCR you have to give me the product details json array of objects with measurement units dont include price unit
+        #             [{
+        #                 'store': store,
+        #                 'date': date,
+        #                 'brand': brand,
+        #                 'product_desc': product_desc,
+        #                 'measurement_units': measurement_units,
+        #                 'price_per_unit': price_per_unit,
+        #                 'quantity': quantity,
+        #                 'discount': discount,
+        #                 'total_price': total_price,
+        #             }]
+        #             in this structure for each and every product in the given text 
+        #         """
+        # extracted_text=beforePrompt+extracted_text+myprompt
         extracted_text=extracted_text+myprompt
         ai = MetaAI(fb_email="Email", fb_password="Password")
         resp = ai.prompt(message=extracted_text, stream=False)
