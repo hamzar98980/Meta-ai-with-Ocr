@@ -35,8 +35,8 @@ app.add_middleware(
 pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
 MAX_RETRIES = 3
-THREAD_ID="ebe0e45e-27d2-459b-a3d2-792ed1a71a56"
-# THREAD_ID="fc0099a3-544a-4a0f-b300-5d2e3823dd67"
+THREAD_ID="896da805-e5d7-43bc-8611-a042c9aaa880"
+# THREAD_ID="ebe0e45e-27d2-459b-a3d2-792ed1a71a56"
 COOKIE_TOKEN="Fqz98dCNnsEBFlQYDmoxNXp2SVJndWpfbXpnFpKg%2BvMMAA%3D%3D"
 
 class MetaAI:
