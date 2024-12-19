@@ -32,7 +32,6 @@ app.add_middleware(
     allow_methods=["*"],  # Allow all HTTP methods
     allow_headers=["*"],  # Allow all headers
 )
-# pytesseract.pytesseract.tesseract_cmd = r'C:\Users\Hamza Rashid\AppData\Local\Programs\Tesseract-OCR\tesseract.exe'  # Adjust the path as needed
 pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
 MAX_RETRIES = 3
