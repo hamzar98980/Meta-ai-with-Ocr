@@ -447,7 +447,7 @@ async def retrieve_text(request: ImageRequest):
         processed_image = preprocess_image(image)
         config = "--oem 3"
         extracted_text = pytesseract.image_to_string(processed_image, config=config, lang="eng")
-        return {"result": extracted_text}
+      
         myprompt =  """  
         
                 Convert it to json and and rephrase the product name to actual product name fix the product spellings and also give me a brand and manufactured of each product and
